@@ -57,16 +57,8 @@ const Payment = () => {
               Email: <span className='text-dark fw-bold'>{order.email}</span>
             </h5>
             <h5 className='text-secondary'>
-              Event Date:{' '}
-              <span className='text-dark fw-bold'>{order.tour_date}</span>
-            </h5>
-            <h5 className='text-secondary'>
-              Journey Time:{' '}
-              <span className='text-dark fw-bold'>{order.start_time}</span>{' '}
-            </h5>
-            <h5 className='text-secondary'>
-              Return Time:{' '}
-              <span className='text-dark fw-bold'>{order.return_date}</span>{' '}
+              Service Category:{' '}
+              <span className='text-dark fw-bold'>{order.category}</span>
             </h5>
           </div>
         </div>

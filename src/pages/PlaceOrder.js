@@ -40,10 +40,6 @@ const PlaceOrder = () => {
       .then((data) => setProduct(data));
   }, [id]);
 
-  // for date comparison
-  let todayDate = new Date();
-  const eventDate = new Date(product.tour_date);
-
   const { register, handleSubmit, reset } = useForm();
 
   const onSubmit = (data) => {
@@ -100,7 +96,7 @@ const PlaceOrder = () => {
             <Col className='my-4' sm={12} md={6}>
               <div className='mt-5'>
                 <h2 className='text-success fw-bold'>{product?.title}</h2>
-                <h4>{product.desc}</h4>
+                <h4>{product.desc.slice(0, 228)}... </h4>
                 <h3 className='mt-3 fw-bold text-warning'>
                   Price: {discoutPrice}.00TK
                 </h3>
@@ -192,15 +188,7 @@ const PlaceOrder = () => {
                     />
                   )} */}
 
-                  {todayDate >= eventDate ? (
-                    <div className={`${placeOrderStyle.alertDiv} p-2 rounded`}>
-                      <h2 className='text-danger fw-bold bg'>
-                        !! Past Event !! <br />
-                        Sorry! This event date was {product.tour_date}. You
-                        can't book this.
-                      </h2>
-                    </div>
-                  ) : orderMatched ? (
+                  {orderMatched ? (
                     <div className={`${placeOrderStyle.alertDiv} p-2 rounded`}>
                       <h2 className='text-danger fw-bold alertDiv'>
                         You have already booked the package. Your Booking Date

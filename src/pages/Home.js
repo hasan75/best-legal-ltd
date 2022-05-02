@@ -17,7 +17,7 @@ import collection8 from './../assets/images/collection/c8.jpg';
 import Bounce from 'react-reveal/Bounce';
 import Testimonials from '../components/Testimonials.js';
 import VideoCOmponent from '../components/VideoCOmponent/VideoCOmponent.js';
-import TravelBlog from '../components/TravelBlog/TravelBlog.js';
+import CustomBlog from '../components/CustomBlog/CustomBlog.js';
 import SingleStory from '../components/SingleStory/SingleStory.js';
 const Home = () => {
   const products = useProducts();
@@ -121,7 +121,7 @@ const Home = () => {
       </section>
       <Container mt={3}>
         <Bounce bottom cascade>
-          <h2 className='text-center feature'>Traveller's Story</h2>
+          <h2 className='text-center feature'>Our's Story</h2>
           <p style={{ maxWidth: '650px' }} className='text-center mx-auto mt-3'>
             {' '}
             A great memory shouldn't be forgotten. Some of the finest writings

@@ -16,7 +16,7 @@ import ContextProvider from './contexts/ContextProvider';
 import About from './pages/About';
 import SingleProduct from './pages/SingleProduct';
 import { useEffect, useState } from 'react';
-import TravelBlog from './components/TravelBlog/TravelBlog';
+import CustomBlog from './components/CustomBlog/CustomBlog';
 
 function App() {
   const [showBtn, setShowBtn] = useState(false);
@@ -51,7 +51,7 @@ function App() {
               <About></About>
             </Route>
             <Route path='/blogs'>
-              <TravelBlog></TravelBlog>
+              <CustomBlog></CustomBlog>
             </Route>
             <PrivateRoute path='/dashboard'>
               <Dashboard></Dashboard>

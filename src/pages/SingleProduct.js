@@ -119,31 +119,13 @@ const SingleProduct = () => {
                 <span
                   className={`${singleServiceStyle.infoText} my-2 mx-2 text-secondary`}
                 >
-                  Destination:{' '}
+                  Coverage Area:{' '}
                   <span className='fw-bold'>{service?.destination}</span>
                 </span>
                 <span
                   className={`${singleServiceStyle.infoText} my-2 text-secondary mx-2`}
                 >
-                  Journey From: <span className='fw-bold'>{service?.from}</span>
-                </span>
-                <span
-                  className={`${singleServiceStyle.infoText} my-2 text-secondary mx-2`}
-                >
-                  Journey Date:{' '}
-                  <span className='fw-bold'>{service?.tour_date}</span>
-                </span>
-                <span
-                  className={`${singleServiceStyle.infoText} my-2 text-secondary mx-2`}
-                >
-                  Reporting Time:{' '}
-                  <span className='fw-bold'>{service?.start_time}</span>
-                </span>
-                <span
-                  className={`${singleServiceStyle.infoText} my-2 text-secondary mx-2`}
-                >
-                  Return Date:{' '}
-                  <span className='fw-bold'>{service?.return_date}</span>
+                  Category: <span className='fw-bold'>{service?.category}</span>
                 </span>
                 <span
                   className={`${singleServiceStyle.infoText} my-2 text-secondary mx-2`}
@@ -172,29 +154,31 @@ const SingleProduct = () => {
         <div className='row'>
           <div className='col-md-6 my-4'>
             <div className={`${singleServiceStyle.tourDetails}`}>
-              <h4 className='text-start text-success fw-bold'>Tour Details</h4>
+              <h4 className='text-start text-success fw-bold'>
+                Service Details
+              </h4>
               <p className='fw-bold'>{service?.desc}</p>
               <h5 className='text-warning fw-bold my-2 pt-3'>
                 Read the points below before you book your package
               </h5>
               <ul className='list-group my-2 py-3'>
                 <li className='list-group-item'>
-                  Every Tour consists of minimum 15 people, so you have to be
-                  with a group
+                  Every Service consists of some boundaries, so you have to be
+                  flexible.
                 </li>
                 <li className='list-group-item'>
                   No Extra Costs like snacks, cigarette, extra food, extra guide
-                  will be beared by host.
+                  will be necessary.
                 </li>
                 <li className='list-group-item'>
-                  Members have to listen to the host's call
+                  Customers have to listen to the managers's call
                 </li>
                 <li className='list-group-item text-danger'>
-                  No alcohol is allowed in the tour.
+                  No alcohol service is provided in the Service.
                 </li>
                 <li className='list-group-item'>
-                  Your guide or host won't be the person which will carry your
-                  belongings.
+                  Your guide or quard won't be the person which will carry your
+                  belongings or do house hold work.
                 </li>
               </ul>
             </div>
@@ -206,31 +190,43 @@ const SingleProduct = () => {
               </h4>
               <p className='fw-bold'>
                 In order to help explain the undeniable benefits of using a
-                travel agent to book your future travel, I’ve partnered with
-                Ataur Rahman Masum, owner of Best Force Ltd.
+                security service to book your future consern, I’ve partnered
+                with Ataur Rahman Masum, owner of Best Force Ltd.
               </p>
               <ul className='list-group my-2 py-3'>
                 <li className='list-group-item'>
-                  The #1 benefit of using HTT when it comes to booking your
-                  family travel is because travel is our expertise.
+                  The #1 benefit of using BFL when it comes to booking your
+                  family security and other services is because security and
+                  other services is our expertise.
                 </li>
                 <li className='list-group-item'>
-                  We, the hosts of Best Force Ltd have the greatest Destination
+                  We, the employees of Best Force Ltd have the greatest insight
                   knowledge.
                 </li>
                 <li className='list-group-item'>
-                  that travelers do not pay more for vacations because Hit The
-                  Trail is always with you.
+                  that customers do not pay more for services because BEST FORCE
+                  LTD is always with you.
                 </li>
                 <li className='list-group-item'>
-                  The relationship you’ll form with your Best Force Ltd host, as
-                  well as their relationships with other hosts, are two of the
-                  benefits of using Best Force Ltd as your travel partner.
+                  You will be the first priority of your service's employees.
+                  They will do anything with their limit to serve you.
                 </li>
                 <li className='list-group-item'>
-                  Our Hosts will be the best assistance to you in your trip.
-                  They will assist you anywhere, anyhow!! That's the main
-                  advantage if you get the service of Best Force Ltd
+                  The relationship you’ll form with your Best Force Ltd
+                  employees, as well as their relationships with other
+                  employees, are two of the benefits of using Best Force Ltd as
+                  your security or other service partner.
+                </li>
+                <li className='list-group-item'>
+                  The relationship you’ll form with your Best Force Ltd
+                  employees, as well as their relationships with other
+                  employees, are two of the benefits of using Best Force Ltd as
+                  your security or other service partner.
+                </li>
+                <li className='list-group-item'>
+                  Our employees will be the best assistance to you in your home
+                  or office. They will assist you anywhere, anyhow!! That's the
+                  main advantage if you get the service of Best Force Ltd.
                 </li>
               </ul>
             </div>

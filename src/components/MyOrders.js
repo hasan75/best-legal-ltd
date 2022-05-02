@@ -198,7 +198,8 @@ const Orders = () => {
                                   Best Force Ltd{' '}
                                 </span>{' '}
                                 <br />
-                                The finest Tour Management Group of BD <br />
+                                The finest Security Management Group of BD{' '}
+                                <br />
                                 <span className='text-primary'>
                                   Date: {new Date().toDateString()}
                                 </span>
@@ -395,7 +396,7 @@ const Orders = () => {
                         <img width='100px' src={order.img} alt='' />
                       </td>
                       <td>{order.title}</td>
-                      <td>{order.desc}</td>
+                      <td>{order.desc.slice(0, 100)}...</td>
                       <td>{order?.orderDate}</td>
 
                       <td>

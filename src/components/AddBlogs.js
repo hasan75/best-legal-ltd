@@ -72,11 +72,13 @@ const AddBlogs = () => {
               />
             </Form.Group>
             <Form.Group as={Col} md={6} sm={12} className='mr-md-5'>
-              <Form.Label style={{ fontWeight: 'bold' }}>Tour Tag</Form.Label>
+              <Form.Label style={{ fontWeight: 'bold' }}>
+                Service Tag
+              </Form.Label>
               <Form.Control
                 type='text'
                 {...register('tag', { required: false })}
-                placeholder='Tour Tag'
+                placeholder='Service Tag'
               />
             </Form.Group>
           </Row>
@@ -111,11 +113,13 @@ const AddBlogs = () => {
               />
             </Form.Group>
             <Form.Group as={Col} md={6} sm={12}>
-              <Form.Label style={{ fontWeight: 'bold' }}>Tour Place</Form.Label>
+              <Form.Label style={{ fontWeight: 'bold' }}>
+                Service Category
+              </Form.Label>
               <Form.Control
                 type='text'
-                {...register('tourPlace', { required: false })}
-                placeholder='Blog Whiting Date'
+                {...register('serviceCategry', { required: false })}
+                placeholder='service category'
               />
             </Form.Group>
           </Row>

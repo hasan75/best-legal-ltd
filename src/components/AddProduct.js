@@ -65,20 +65,22 @@ const AddProduct = () => {
             <Row className='justify-content-center'>
               <Form.Group as={Col} md={6} sm={12} className='mr-md-5'>
                 <Form.Label style={{ fontWeight: 'bold' }}>
-                  Tour Event Name
+                  Service Name
                 </Form.Label>
                 <Form.Control
                   type='text'
                   {...register('title', { required: true })}
-                  placeholder='Tour Event title'
+                  placeholder='Service title'
                 />
               </Form.Group>
               <Form.Group as={Col} md={6} sm={12} className='mr-md-5'>
-                <Form.Label style={{ fontWeight: 'bold' }}>Tour Tag</Form.Label>
+                <Form.Label style={{ fontWeight: 'bold' }}>
+                  Service Tag
+                </Form.Label>
                 <Form.Control
                   type='text'
                   {...register('tag', { required: true })}
-                  placeholder='Tour Tag'
+                  placeholder='Service Tag'
                 />
               </Form.Group>
             </Row>
@@ -107,69 +109,25 @@ const AddProduct = () => {
             </Row>
 
             <Row className='justify-content-center mb-2 mt-4'>
-              <Form.Group as={Col} md={4} sm={12}>
+              <Form.Group as={Col} md={6} sm={12}>
                 <Form.Label style={{ fontWeight: 'bold' }}>
-                  Tour Start From
-                </Form.Label>
-                <Form.Control
-                  type='text'
-                  {...register('from', { required: true })}
-                  placeholder='Journey Start From?'
-                />
-              </Form.Group>
-
-              <Form.Group as={Col} md={4} sm={12} className='mr-md-5'>
-                <Form.Label style={{ fontWeight: 'bold' }}>
-                  Tour Date
-                </Form.Label>
-                <Form.Control
-                  type='date'
-                  {...register('tour_date', { required: true })}
-                  placeholder='Tour Date'
-                />
-              </Form.Group>
-              <Form.Group as={Col} md={4} sm={12} className='mr-md-5'>
-                <Form.Label style={{ fontWeight: 'bold' }}>
-                  Tour Starting Time
-                </Form.Label>
-                <Form.Control
-                  type='time'
-                  {...register('start_time', { required: true })}
-                  placeholder='Start ime'
-                />
-              </Form.Group>
-            </Row>
-
-            <Row className='justify-content-center mb-2 mt-4'>
-              <Form.Group as={Col} md={4} sm={12}>
-                <Form.Label style={{ fontWeight: 'bold' }}>
-                  Tour Destination
+                  Coverage Area
                 </Form.Label>
                 <Form.Control
                   type='text'
                   {...register('destination', { required: true })}
-                  placeholder='Tour Destination'
+                  placeholder='Coverage Area'
                 />
               </Form.Group>
 
-              <Form.Group as={Col} md={4} sm={12} className='mr-md-5'>
+              <Form.Group as={Col} md={6} sm={12} className='mr-md-5'>
                 <Form.Label style={{ fontWeight: 'bold' }}>
-                  Returning Date
+                  Service Category
                 </Form.Label>
                 <Form.Control
-                  type='date'
-                  {...register('return_date', { required: true })}
-                  placeholder='Tour Returning Date'
-                />
-              </Form.Group>
-              <Form.Group as={Col} md={4} sm={12} className='mr-md-5'>
-                <Form.Label style={{ fontWeight: 'bold' }}>
-                  Return Time
-                </Form.Label>
-                <Form.Control
-                  type='time'
-                  {...register('return_time', { required: true })}
-                  placeholder='Tour Returning Time'
+                  type='text'
+                  {...register('category', { required: true })}
+                  placeholder='Service Category'
                 />
               </Form.Group>
             </Row>
@@ -189,7 +147,7 @@ const AddProduct = () => {
                   id='upload'
                   type='text'
                   {...register('img')}
-                  placeholder='Enter tour package image'
+                  placeholder='Enter package image'
                 />
               </InputGroup>
             </Row>

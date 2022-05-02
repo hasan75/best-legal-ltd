@@ -14,12 +14,9 @@ const Product = ({ product }) => {
     img,
     rating,
     totalReview,
-    from,
     destination,
-    tour_date,
-    start_time,
-    return_date,
     discount,
+    category,
   } = product;
 
   // const priceAfterDiscount = parseInt(price);
@@ -55,7 +52,7 @@ const Product = ({ product }) => {
             </Card.Title>
             <Card.Text className='text-center small'>
               <i className='fas event-icon fa-map-marker-alt text-success'></i>{' '}
-              &nbsp; {from} to {destination} &nbsp;{' '}
+              &nbsp;{destination} &nbsp;{' '}
               <i className='fas event-icon fa-flag-checkered text-success'></i>
             </Card.Text>
             <Card.Text className='text-center fw-bold '>
@@ -79,7 +76,7 @@ const Product = ({ product }) => {
               TK
             </Card.Text>
             <Card.Text className='text-center fw-bold '>
-              Date: <span className='text-success'> {tour_date}</span>
+              Category: <span className='text-success'> {category}</span>
             </Card.Text>
             <hr />
             <Card.Text>{desc.slice(0, 110)}...</Card.Text>

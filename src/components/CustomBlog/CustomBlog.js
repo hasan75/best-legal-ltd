@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from 'react';
 import Swal from 'sweetalert2';
 import SingleStory from '../SingleStory/SingleStory';
-import travelStyles from './TravelBlog.module.css';
+import travelStyles from './CustomBlog.module.css';
 
-const TravelBlog = () => {
+const CustomBlog = () => {
   const [blogs, setBlogs] = useState([]);
 
   useEffect(() => {
@@ -25,7 +25,7 @@ const TravelBlog = () => {
 
   return (
     <div>
-      <h1 className='text-center pt-4'>Traveller's Story</h1>
+      <h1 className='text-center pt-4'>Our's Story</h1>
       <div className='container my-2'>
         <div className='row d-flex justify-content-between'>
           {blogs.map((singledata) => (
@@ -40,4 +40,4 @@ const TravelBlog = () => {
   );
 };
 
-export default TravelBlog;
+export default CustomBlog;
