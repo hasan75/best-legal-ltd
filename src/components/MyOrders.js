@@ -4,7 +4,6 @@ import toast, { Toaster } from 'react-hot-toast';
 import Swal from 'sweetalert2';
 import useContexts from '../hooks/useContexts.js';
 import myordersStyle from '../assets/css/myorder.module.css';
-import ReactToPdf from 'react-to-pdf';
 import ReactToPrint from 'react-to-print';
 import { Link } from 'react-router-dom';
 import httLogo from '../assets/images/logo.png';
