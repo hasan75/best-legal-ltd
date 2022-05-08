@@ -16,6 +16,13 @@ const CheckoutForm = ({ order }) => {
   const stripe = useStripe();
   const elements = useElements();
 
+  //for booking payment renewal date for 1 month
+  let dateForPayment = new Date().toLocaleDateString();
+  // for counting one month
+  let currentDate = new Date();
+  currentDate.setMonth(currentDate.getMonth() + 1);
+  let subscriptionUpTo = currentDate.toLocaleDateString();
+
   useEffect(() => {
     fetch('http://localhost:5001/create-payment-intent', {
       method: 'POST',
@@ -96,6 +103,8 @@ const CheckoutForm = ({ order }) => {
         amount: paymentIntent.amount,
         created: paymentIntent.created,
         last4: paymentMethod.card.last4,
+        paymentDate: new Date().toLocaleDateString(),
+        subscriptionUpTo: subscriptionUpTo,
         transaction: paymentIntent.client_secret.slice('_secret')[0],
       };
       const url = `http://localhost:5001/orders/${_id}`;
@@ -118,12 +127,12 @@ const CheckoutForm = ({ order }) => {
           options={{
             style: {
               base: {
-                iconColor: '#1a1f37',
-                color: '#2d2d2d',
-                fontWeight: '500',
-                fontFamily: 'Roboto, Open Sans, Segoe UI, sans-serif',
-                fontSize: '16px',
-                fontSmoothing: 'antialiased',
+                'iconColor': '#1a1f37',
+                'color': '#2d2d2d',
+                'fontWeight': '500',
+                'fontFamily': 'Roboto, Open Sans, Segoe UI, sans-serif',
+                'fontSize': '16px',
+                'fontSmoothing': 'antialiased',
                 ':-webkit-autofill': {
                   color: '#fce883',
                 },

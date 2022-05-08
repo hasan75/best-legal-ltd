@@ -241,7 +241,7 @@ const Orders = () => {
             <Toaster position='bottom-left' reverseOrder={false} />
             <thead className='bg-light'>
               <tr>
-                <th colSpan={11} className='text-center text-primary fw-bold'>
+                <th colSpan={12} className='text-center text-primary fw-bold'>
                   <span className='text-danger'> Best Force Ltd </span> <br />
                   The package list booked at Best Force Ltd <br />
                   <span className='text-secondary'>
@@ -250,13 +250,13 @@ const Orders = () => {
                 </th>
               </tr>
               <tr>
-                <th colSpan={11} className='text-center text-primary fw-bold'>
+                <th colSpan={12} className='text-center text-primary fw-bold'>
                   Total Booking Price:{' '}
                   <span className='text-danger'>{totalPrice}</span> Taka
                 </th>
               </tr>
               <tr>
-                <th colSpan={11} className='text-center text-primary fw-bold'>
+                <th colSpan={12} className='text-center text-primary fw-bold'>
                   Total Paid Booking Price:{' '}
                   <span className='text-danger'>{totalPaidPrice}</span> Taka
                 </th>
@@ -272,6 +272,7 @@ const Orders = () => {
                 <th>Action</th>
                 <th>Booking Status</th>
                 <th>Payment Status</th>
+                <th>Subscription To</th>
                 <th>Invoice</th>
               </tr>
             </thead>
@@ -330,6 +331,11 @@ const Orders = () => {
                       ) : (
                         <span className='text-warning'>Not Paid</span>
                       )}
+                    </td>
+                    <td>
+                      {order?.payment
+                        ? order.payment.subscriptionUpTo
+                        : 'Not Paid'}
                     </td>
                     <td>
                       {order?.payment ? (

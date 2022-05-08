@@ -89,6 +89,14 @@ const SingleProduct = () => {
     reset();
   };
 
+  //for booking payment renewal date for 1 month
+  let dateForPayment = new Date().toLocaleDateString();
+
+  // for counting one month
+  let currentDate = new Date();
+  currentDate.setMonth(currentDate.getMonth() + 1);
+  let subscriptionUpTo = currentDate.toLocaleDateString();
+
   return (
     <div className='container my-2 py-2'>
       <h1 className='py-3 text-center text-dark'>
@@ -144,9 +152,24 @@ const SingleProduct = () => {
                 <span
                   className={`${singleServiceStyle.infoText} my-2 text-secondary mx-2`}
                 >
+                  Subscription Period:{' '}
+                  <span className='fw-bold text-success'>1 Month</span>
+                </span>
+                <span
+                  className={`${singleServiceStyle.infoText} my-2 text-secondary mx-2`}
+                >
+                  If you book today subscription ends on:{' '}
+                  <span className='fw-bold text-warning bg-secondary p-1 rounded'>
+                    {subscriptionUpTo}
+                  </span>
+                </span>
+                <span
+                  className={`${singleServiceStyle.infoText} my-2 text-secondary mx-2`}
+                >
                   Discount Price:{' '}
                   <span className='fw-bold text-success'>{discoutPrice}</span>
                 </span>
+                <div>{/* <p>The date: {dateforPayment}</p> */}</div>
               </div>
             </div>
           </div>

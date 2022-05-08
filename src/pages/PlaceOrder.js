@@ -31,8 +31,9 @@ const PlaceOrder = () => {
   const orderMatched = orders?.find(
     (order) => product.title === order.title && email === order.email
   );
-  console.log(orderMatched);
 
+  const paymentDate = orderMatched?.payment?.paymentDate;
+  const upTo = orderMatched?.payment?.subscriptionUpTo;
   //to place order
   useEffect(() => {
     fetch(`http://localhost:5001/placeorder/${id}`)
@@ -188,7 +189,16 @@ const PlaceOrder = () => {
                     />
                   )} */}
 
-                  {orderMatched ? (
+                  {paymentDate ? (
+                    <div className={`${placeOrderStyle.alertDiv} p-2 rounded`}>
+                      <h2 className='text-info fw-bold alertDiv'>
+                        You have taken the service. Your Payment Date was{' '}
+                        {paymentDate}. <br />
+                        Your subscriptions ends on{' '}
+                        <span className='text-danger'>{upTo}</span>.
+                      </h2>
+                    </div>
+                  ) : orderMatched ? (
                     <div className={`${placeOrderStyle.alertDiv} p-2 rounded`}>
                       <h2 className='text-danger fw-bold alertDiv'>
                         You have already booked the package. Your Booking Date

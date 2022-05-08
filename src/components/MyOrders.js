@@ -102,7 +102,7 @@ const Orders = () => {
             <Toaster position='bottom-left' reverseOrder={false} />
             <thead className='bg-light'>
               <tr>
-                <th colSpan={8} className='text-center text-primary fw-bold'>
+                <th colSpan={10} className='text-center text-primary fw-bold'>
                   <span className='text-danger'> Best Force Ltd </span> <br />
                   The package list booked at Best Force Ltd <br />
                   <span className='text-secondary'>
@@ -117,6 +117,8 @@ const Orders = () => {
                 <th>Cost</th>
                 <th>Status</th>
                 <th>Payment Status</th>
+                <th>Payment Date</th>
+                <th>Subscription Up To</th>
                 <th>Invoice</th>
                 <th>Action</th>
               </tr>
@@ -160,6 +162,16 @@ const Orders = () => {
                           <button className='btn btn-primary'>Pay</button>
                         </Link>
                       )}
+                    </td>
+                    <td>
+                      {order?.payment
+                        ? order?.payment?.paymentDate
+                        : 'Not Paid'}
+                    </td>
+                    <td className='text-danger fw-bold rounded text-center'>
+                      {order?.payment
+                        ? order.payment.subscriptionUpTo
+                        : 'Pay Your Order'}
                     </td>
                     <td>
                       {order?.payment ? (
@@ -350,15 +362,20 @@ const Orders = () => {
                         </Table>
                       </div>
                     </td>
-                    <td>
+                    <td className='d-flex align-items-center'>
                       <Button
                         variant='outline-danger'
-                        className='p-1 ml-3 mb-0'
+                        className='p-1 m-1'
                         onClick={() => deletion(order._id)}
                       >
                         <i className='fas mx-1 fa-trash'></i>
                         Delete
                       </Button>
+                      {order?.payment && (
+                        <Button variant='outline-danger' className='m-1 p-1'>
+                          Cancel Subscription
+                        </Button>
+                      )}
                     </td>
                   </tr>
                 </tbody>
