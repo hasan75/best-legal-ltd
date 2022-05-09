@@ -55,6 +55,55 @@ const Orders = () => {
     });
   };
 
+  const cancelSubscription = (id) => {
+    Swal.fire({
+      icon: 'warning',
+      title: 'Are you sure to end the subscription?',
+      showCancelButton: true,
+      confirmButtonText: 'YES',
+    }).then((result) => {
+      if (result.isConfirmed) {
+        const oneOrder = orders.find((theOrder) => theOrder._id === id);
+        //here, the payment subscription ends date update code
+        const todaysDate = new Date().toLocaleDateString();
+        const payment = {
+          amount: oneOrder.payment.amount,
+          created: oneOrder.payment.created,
+          last4: oneOrder.payment.last4,
+          subscriptionUpTo: todaysDate,
+          transaction: oneOrder.payment.transaction,
+          paymentDate: oneOrder.payment.paymentDate,
+        };
+
+        fetch(`http://localhost:5001/orders/${id}`, {
+          method: 'PUT',
+          headers: {
+            'content-type': 'application/json',
+          },
+          body: JSON.stringify(payment),
+        })
+          .then((res) => res.json())
+          .then((data) => {
+            if (data.modifiedCount) {
+              console.log(data);
+              Swal.fire('Subscription Cancelled', '', 'success');
+              window.location.reload();
+            }
+          })
+          .catch((err) => {
+            Swal.fire({
+              position: 'center',
+              icon: 'error',
+              title: 'Something went Wrong',
+              html: 'Please try again!',
+              showConfirmButton: false,
+              timer: 1500,
+            });
+          });
+      }
+    });
+  };
+
   //handle search
   const handleMyOrderSearch = (e) => {
     const searchText = e.target.value;
@@ -118,12 +167,13 @@ const Orders = () => {
                 <th>Status</th>
                 <th>Payment Status</th>
                 <th>Payment Date</th>
-                <th>Subscription Up To</th>
+                <th>Subscription Ends</th>
                 <th>Invoice</th>
                 <th>Action</th>
               </tr>
             </thead>
-            {displayOrders.map((order) => {
+            {displayOrders?.map((order) => {
+              // console.log(order);
               return (
                 <tbody key={order._id} style={{ fontWeight: '500' }}>
                   <tr>
@@ -155,13 +205,40 @@ const Orders = () => {
                       </button>
                     </td>
                     <td>
-                      {order.payment ? (
+                      {/* {order.payment ? (
                         'Paid'
                       ) : (
                         <Link to={`/dashboard/payment/${order._id}`}>
                           <button className='btn btn-primary'>Pay</button>
                         </Link>
-                      )}
+                      )} */}
+                      {/* {
+                        order.payment ? new Date() >= new Date(order.payment.subscriptionUpTo)
+                      } */}
+                      {(() => {
+                        if (order.payment) {
+                          if (
+                            new Date() >=
+                            new Date(order.payment.subscriptionUpTo)
+                          ) {
+                            return (
+                              <Link to={`/dashboard/payment/${order._id}`}>
+                                <button className='btn btn-warning fw-bold text-danger'>
+                                  Renew
+                                </button>
+                              </Link>
+                            );
+                          } else {
+                            return <span className='text-success'>Paid</span>;
+                          }
+                        } else {
+                          return (
+                            <Link to={`/dashboard/payment/${order._id}`}>
+                              <button className='btn btn-primary'>Pay</button>
+                            </Link>
+                          );
+                        }
+                      })()}
                     </td>
                     <td>
                       {order?.payment
@@ -174,21 +251,6 @@ const Orders = () => {
                         : 'Pay Your Order'}
                     </td>
                     <td>
-                      {order?.payment ? (
-                        <ReactToPrint
-                          trigger={() => (
-                            <button className='btn btn-info mb-3'>
-                              {' '}
-                              <i className='fa-solid fa-print'></i>{' '}
-                              <span>Invoice</span>
-                            </button>
-                          )}
-                          content={() => invoiceRef.current}
-                        />
-                      ) : (
-                        <span>Not paid</span>
-                      )}
-
                       {/* the invisible table  */}
                       <div style={{ display: 'none' }}>
                         <Table ref={invoiceRef} responsive>
@@ -224,7 +286,7 @@ const Orders = () => {
                                 <span className='text-info fw-bold'>
                                   Invoice for{' '}
                                   <span className='text-danger'>
-                                    {order.title}
+                                    {order?.title}
                                   </span>
                                 </span>
                               </th>
@@ -235,7 +297,7 @@ const Orders = () => {
                                 <span className='text-info fw-bold'>
                                   Invoice Number{' '}
                                   <span className='text-danger'>
-                                    {order._id}
+                                    {order?._id}
                                   </span>
                                 </span>
                               </th>
@@ -358,9 +420,44 @@ const Orders = () => {
                                 </span>
                               </td>
                             </tr>
+                            <tr>
+                              <td
+                                colSpan={4}
+                                className='d-flex justify-content-end me-2'
+                              >
+                                <span className='fw-bold text-info'>
+                                  Payment Date: {order?.payment?.paymentDate}
+                                </span>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td
+                                colSpan={4}
+                                className='d-flex justify-content-end me-2'
+                              >
+                                <span className='fw-bold text-info'>
+                                  Subscription Ends:{' '}
+                                  {order?.payment?.subscriptionUpTo}
+                                </span>
+                              </td>
+                            </tr>
                           </tbody>
                         </Table>
                       </div>
+                      {order?.payment ? (
+                        <ReactToPrint
+                          trigger={() => (
+                            <button className='btn btn-info mb-3'>
+                              {' '}
+                              <i className='fa-solid fa-print'></i>{' '}
+                              <span>Invoice</span>
+                            </button>
+                          )}
+                          content={() => invoiceRef.current}
+                        />
+                      ) : (
+                        <span>Not paid</span>
+                      )}
                     </td>
                     <td className='d-flex align-items-center'>
                       <Button
@@ -371,11 +468,29 @@ const Orders = () => {
                         <i className='fas mx-1 fa-trash'></i>
                         Delete
                       </Button>
-                      {order?.payment && (
+                      {/* {order?.payment && (
                         <Button variant='outline-danger' className='m-1 p-1'>
                           Cancel Subscription
                         </Button>
-                      )}
+                      )} */}
+                      {(() => {
+                        if (order.payment) {
+                          if (
+                            new Date() <=
+                            new Date(order.payment.subscriptionUpTo)
+                          ) {
+                            return (
+                              <Button
+                                variant='outline-danger'
+                                className='m-1 p-1'
+                                onClick={() => cancelSubscription(order._id)}
+                              >
+                                Cancel Subscription
+                              </Button>
+                            );
+                          }
+                        }
+                      })()}
                     </td>
                   </tr>
                 </tbody>
@@ -387,7 +502,7 @@ const Orders = () => {
               {/* <Toaster position='bottom-left' reverseOrder={false} /> */}
               <thead className='bg-light'>
                 <tr>
-                  <th colSpan={8} className='text-center text-primary fw-bold'>
+                  <th colSpan={10} className='text-center text-primary fw-bold'>
                     <span className='text-danger'> Best Force Ltd </span> <br />
                     The package list booked at Best Force Ltd <br />
                     <span className='text-secondary'>
@@ -400,6 +515,8 @@ const Orders = () => {
                   <th>Package</th>
                   <th>Description</th>
                   <th>Booking Date</th>
+                  <th>Payment Date</th>
+                  <th>Subscription Ends</th>
                   <th>Confirm Status</th>
                   <th>Payment Status</th>
                 </tr>
@@ -414,7 +531,16 @@ const Orders = () => {
                       <td>{order.title}</td>
                       <td>{order.desc.slice(0, 100)}...</td>
                       <td>{order?.orderDate}</td>
-
+                      <td>
+                        {order?.payment
+                          ? order?.payment?.paymentDate
+                          : 'Not Paid'}
+                      </td>
+                      <td className='text-danger fw-bold rounded text-center'>
+                        {order?.payment
+                          ? order.payment.subscriptionUpTo
+                          : 'Pay Your Order'}
+                      </td>
                       <td>
                         <button
                           style={{ width: '100px' }}

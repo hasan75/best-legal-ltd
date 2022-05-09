@@ -7,6 +7,7 @@ import useContexts from '../hooks/useContexts.js';
 import Swal from 'sweetalert2';
 import toast from 'react-hot-toast';
 import placeOrderStyle from '../assets/css/placeOrder.module.css';
+import { Link } from 'react-router-dom';
 
 const PlaceOrder = () => {
   let theOrderDate = new Date().toLocaleDateString();
@@ -34,6 +35,11 @@ const PlaceOrder = () => {
 
   const paymentDate = orderMatched?.payment?.paymentDate;
   const upTo = orderMatched?.payment?.subscriptionUpTo;
+
+  // for date comparison for renewal
+  let todayDate = new Date();
+  const serviceUpTo = new Date(upTo);
+
   //to place order
   useEffect(() => {
     fetch(`http://localhost:5001/placeorder/${id}`)
@@ -163,33 +169,8 @@ const PlaceOrder = () => {
                       />
                     </Col>
                   </Row>
-                  {/* {todayDate >= eventDate ? (
-                    <h2 className='text-danger fw-bold'>
-                      !! Past Event !! <br />
-                      Sorry! This event date was {product.tour_date}. You can't
-                      book this.
-                    </h2>
-                  ) : (
-                    <input
-                      value='Book Now'
-                      className='btn btn-primary'
-                      type='submit'
-                    />
-                  )}
-                  {orderMatched ? (
-                    <h2 className='text-danger fw-bold'>
-                      You have already booked the package. Your Booking Date was{' '}
-                      {orderMatched.orderDate} at {orderMatched.orderTime}.
-                    </h2>
-                  ) : (
-                    <input
-                      value='Book Now'
-                      className='btn btn-primary'
-                      type='submit'
-                    />
-                  )} */}
 
-                  {paymentDate ? (
+                  {/* {todayDate <= serviceUpTo ? (
                     <div className={`${placeOrderStyle.alertDiv} p-2 rounded`}>
                       <h2 className='text-info fw-bold alertDiv'>
                         You have taken the service. Your Payment Date was{' '}
@@ -215,7 +196,83 @@ const PlaceOrder = () => {
                       data-placement='top'
                       title='Invoice Will be available after payment'
                     />
-                  )}
+                  )} */}
+                  {(() => {
+                    if (orderMatched) {
+                      if (orderMatched.payment) {
+                        if (todayDate >= serviceUpTo) {
+                          return (
+                            <div
+                              className={`${placeOrderStyle.alertDiv} p-2 rounded`}
+                            >
+                              <h2 className='text-info fw-bold alertDiv'>
+                                Your subscriptions ends on{' '}
+                                <span className='text-danger'>{upTo}</span>.
+                                Please Renew your service to continue by making
+                                payment.{' '}
+                                <Link
+                                  className='text-decoration-none'
+                                  to='/dashboard/myorder'
+                                >
+                                  Go to Your Services
+                                </Link>{' '}
+                              </h2>
+                            </div>
+                          );
+                        } else {
+                          return (
+                            <div
+                              className={`${placeOrderStyle.alertDiv} p-2 rounded`}
+                            >
+                              <h2 className='text-info fw-bold alertDiv'>
+                                You have taken the service. Your Payment Date
+                                was {paymentDate}. <br />
+                                Your subscriptions ends on{' '}
+                                <span className='text-danger'>
+                                  {upTo}
+                                </span>.{' '}
+                                <Link
+                                  className='text-decoration-none'
+                                  to='/dashboard/myorder'
+                                >
+                                  Go to Your Services
+                                </Link>{' '}
+                              </h2>
+                            </div>
+                          );
+                        }
+                      } else {
+                        return (
+                          <div
+                            className={`${placeOrderStyle.alertDiv} p-2 rounded`}
+                          >
+                            <h2 className='text-danger fw-bold alertDiv'>
+                              You have already booked the package. Your Booking
+                              Date was {orderMatched.orderDate} at{' '}
+                              {orderMatched.orderTime}.{' '}
+                              <Link
+                                className='text-decoration-none'
+                                to='/dashboard/myorder'
+                              >
+                                Go to Your Services
+                              </Link>{' '}
+                            </h2>
+                          </div>
+                        );
+                      }
+                    } else {
+                      return (
+                        <input
+                          value='Book Now'
+                          className='btn btn-primary'
+                          type='submit'
+                          data-toggle='tooltip'
+                          data-placement='top'
+                          title='Invoice Will be available after payment'
+                        />
+                      );
+                    }
+                  })()}
                 </form>
               </div>
             </Col>

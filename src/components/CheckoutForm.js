@@ -148,7 +148,7 @@ const CheckoutForm = ({ order }) => {
           }}
         />
 
-        {processing ? (
+        {/* {processing ? (
           <Spinner variant='danger' animation='border' role='status'>
             <span className='visually-hidden'>Loading...</span>
           </Spinner>
@@ -162,7 +162,47 @@ const CheckoutForm = ({ order }) => {
           >
             Pay {thePrice} Taka
           </button>
-        )}
+        )} */}
+
+        {(() => {
+          if (processing) {
+            return (
+              <Spinner variant='danger' animation='border' role='status'>
+                <span className='visually-hidden'>Loading...</span>
+              </Spinner>
+            );
+          } else {
+            if (order.payment) {
+              if (new Date() >= new Date(order.payment.subscriptionUpTo)) {
+                return (
+                  <button
+                    type='submit'
+                    className='btn btn-outline-warning text-danger fw-bold'
+                    disabled={!stripe || success}
+                  >
+                    Renew Package with {thePrice} Taka
+                  </button>
+                );
+              } else {
+                return (
+                  <span className='text-success fw-bold'>
+                    Payment Completed
+                  </span>
+                );
+              }
+            } else {
+              return (
+                <button
+                  type='submit'
+                  className='btn btn-outline-success'
+                  disabled={!stripe || success}
+                >
+                  Pay {thePrice} Taka
+                </button>
+              );
+            }
+          }
+        })()}
       </form>
     </div>
   );
